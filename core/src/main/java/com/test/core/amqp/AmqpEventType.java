@@ -4,8 +4,8 @@ public enum AmqpEventType {
 
     DRIVER_CREATION("driver_creation", "driver.creation.reply"),
     DRIVER_ACCEPTED("driver_accepted", "driver_accepted.reply"),
-    PASSENGER_CREATION("oassenger_creation", "oassenger.creation.reply"),
-    PASSENGER_ACCEPTED("oassenger_accepted", "oassenger_accepted.reply");
+    PASSENGER_CREATION("passenger_creation", "passenger.creation.reply"),
+    PASSENGER_ACCEPTED("passenger_accepted", "passenger_accepted.reply");
     //ToDo implement queues for other operations
 
     private String name;

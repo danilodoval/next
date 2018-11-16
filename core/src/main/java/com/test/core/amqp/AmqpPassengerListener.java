@@ -42,8 +42,8 @@ public class AmqpPassengerListener {
     private SchedulerMatch schedulerMatch;
 
     @SuppressWarnings("rawtypes")
-    @RabbitListener(queues = "${DRIVER_CREATION_QUEUE:driver.creation}")
-    public void driverCreationListener(
+    @RabbitListener(queues = "${PASSENGER_CREATION_QUEUE:passenger.creation}")
+    public void passengerCreationListener(
             Message message,
             @Header(AmqpHeaders.CHANNEL) Channel channel,
             @Header(AmqpHeaders.DELIVERY_TAG) Long deliveryTag) throws IOException {
