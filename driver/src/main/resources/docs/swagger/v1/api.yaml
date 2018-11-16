@@ -1,0 +1,61 @@
+openapi: "3.0.0"
+info:
+  title: Driver
+  description: Driver - NEXT CHALLENGE API Documentation
+  version: "1.0.0"
+servers:
+  - url: http://localhost/api/v1
+paths:
+  /drivers:
+    get:
+      summary: Retrieve the metadata of all drivers
+      tags:
+        - Driver
+      parameters:
+        - in: query
+          name: size
+          schema:
+            type: integer
+            default: 1000
+          description: The number of items to return
+          required: false
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 0
+          description: Number of items to skip before starting to collect the driver metadata objects.
+          required: false
+      responses:
+        200:
+          description: The drivers list info.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Driver"
+        204:
+          description: No content.
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+components:
+  schemas:
+    Driver:
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The Driver unique identification.
+        name:
+          type: string
+          description: Driver's name.
+    ResponseError:
+      properties:
+        message:
+          type: string
+          description: Message that describes an error event.

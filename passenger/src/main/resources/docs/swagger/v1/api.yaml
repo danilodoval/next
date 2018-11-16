@@ -1,0 +1,61 @@
+openapi: "3.0.0"
+info:
+  title: Passenger
+  description: Passenger - NEXT CHALLENGE API Documentation
+  version: "1.0.0"
+servers:
+  - url: http://localhost/api/v1
+paths:
+  /passengers:
+    get:
+      summary: Retrieve the metadata of all passenger
+      tags:
+        - Passenger
+      parameters:
+        - in: query
+          name: size
+          schema:
+            type: integer
+            default: 1000
+          description: The number of items to return
+          required: false
+        - in: query
+          name: page
+          schema:
+            type: integer
+            default: 0
+          description: Number of items to skip before starting to collect the passenger metadata objects.
+          required: false
+      responses:
+        200:
+          description: The passengers list info.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Passenger"
+        204:
+          description: No content.
+        500:
+          description: Internal Server Error.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ResponseError"
+components:
+  schemas:
+    Passenger:
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The Passenger unique identification.
+        name:
+          type: string
+          description: Passenger's name.
+    ResponseError:
+      properties:
+        message:
+          type: string
+          description: Message that describes an error event.

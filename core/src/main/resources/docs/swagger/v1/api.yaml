@@ -1,0 +1,124 @@
+asyncapi: "1.0.0"
+info:
+  title: Next Challenge Core
+  version: "1.0.0"
+  x-logo: https://avatars0.githubusercontent.com/u/16401334?v=4&s=200
+  description: |
+    Events to add Drivers and Passengers in the decision engine, and answer the decisions to the members.
+  termsOfService: http://ddval.com
+
+servers:
+  - url: rabbitmq.marathon.l4lb.thisdcos.directory:{port}
+    description: Allows you to connect using the AMQP protocol.
+    scheme: amqp
+    variables:
+      port:
+        enum:
+          - '5676'
+          - '5677'
+        default: '5676'
+
+topics:
+  driver.creation:
+    publish:
+      $ref: "#/components/messages/driver_created"
+  driver.accepted:
+    publish:
+      $ref: "#/components/messages/driver_accepted"
+  passenger.creation:
+    publish:
+      $ref: "#/components/messages/passenger_created"
+  passenger.accepted:
+    publish:
+      $ref: "#/components/messages/passenger_accepted"
+
+components:
+  messages:
+    driver_created:
+      summary: Emitted when driver has been created.
+      description:
+        TBD. **It allows Markdown.**
+      tags:
+        - name: tenant
+      headers:
+        type: object
+        properties:
+          tenant:
+            $ref: "#/components/schemas/DriverCreated"
+    driver_accepted:
+      summary: Emitted when the driver has a new passenger
+      description:
+        TBD. **It allows Markdown.**
+      tags:
+        - name: tenant
+      headers:
+        type: object
+        properties:
+          tenant:
+            $ref: "#/components/schemas/DriverPassengerAccepted"
+
+    passenger_created:
+      summary: Emitted when passenger has been created.
+      description:
+        TBD. **It allows Markdown.**
+      tags:
+        - name: tenant
+      headers:
+        type: object
+        properties:
+          tenant:
+            $ref: "#/components/schemas/PassengerCreated"
+    passenger_accepted:
+      summary: Emitted when the passenger has a new driver
+      description:
+        TBD. **It allows Markdown.**
+      tags:
+        - name: tenant
+      headers:
+        type: object
+        properties:
+          tenant:
+            $ref: "#/components/schemas/DriverPassengerAccepted"
+
+  schemas:
+    DriverCreated:
+      type: object
+      required:
+        - name
+      properties:
+        originX:
+          description: Position of origin in the X axis
+          type: int
+        originY:
+          description: Position of origin in the Y axis
+          type: int
+
+    DriverPassengerAccepted:
+      type: object
+      required:
+        - name
+      properties:
+        Driver:
+          description: Driver identification
+          type: string
+        Passenger:
+          description: Passenger identification
+          type: string
+
+    PassengerCreated:
+      type: object
+      required:
+        - name
+      properties:
+        originX:
+          description: Position of origin in the X axis
+          type: int
+        originY:
+          description: Position of origin in the Y axis
+          type: int
+        destX:
+          description: Target position on the X axis
+          type: int
+        destY:
+          description: Target position on the Y axis
+          type: int
