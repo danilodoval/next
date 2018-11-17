@@ -45,12 +45,12 @@ public class SchedulerMatch implements Job {
     AmqpPassengerProducer passengerProducer;
 
     private static final Logger logger = LoggerFactory.getLogger(CoreApplication.class);
-    private static final int MAX_X = 300;
-    private static final int MAX_Y = 300;
+    private static final int MAX_X = 300;                               //ToDo use environment variable
+    private static final int MAX_Y = 300;                               //ToDo use environment variable
 
-    private static final int NUMBER_OF_BLOCKED_HORIZONTAL_LINES = 3;
-    private static final int NUMBER_OF_BLOCKED_VERTICAL_LINES = 3;
-    private static final int MAX_BLOCKED_SIZE_LINE = 500;
+    private static final int NUMBER_OF_BLOCKED_HORIZONTAL_LINES = 3;    //ToDo use environment variable
+    private static final int NUMBER_OF_BLOCKED_VERTICAL_LINES = 3;      //ToDo use environment variable
+    private static final int MAX_BLOCKED_SIZE_LINE = 500;               //ToDo use environment variable
 
     private static final Random random = new Random(100);
 
@@ -120,9 +120,6 @@ public class SchedulerMatch implements Job {
     @Override
     public void execute(JobExecutionContext arg0) {
         try {
-            System.out.println("Validando dados duplicados no banco. At " + new Date());
-            System.out.println("Deletando registros com mais de 10 dias sem uso. At " + new Date());
-
             if (!drivers.isEmpty() && !passengers.isEmpty()) {
 
                 final Matcher matcher = new MatcherImpl(restriction, selector);
@@ -138,6 +135,7 @@ public class SchedulerMatch implements Job {
                 matcherResult = matcher.match(emptyDrivers, noDriverPassengers);
                 matcherResult.getMatches().forEach(match -> {
                     try {
+                        //ToDo valid accept of the Driver, insert rpc for await response
                         removeDriver(match.getFirst());
                         removePassenger(match.getSecond());
                         sendMessageForDriverAccepted(match.getFirst().getIdentifier(), match.getSecond().getIdentifier());
