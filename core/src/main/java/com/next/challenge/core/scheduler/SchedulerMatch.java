@@ -42,11 +42,12 @@ public class SchedulerMatch implements Job {
 
     private static final Logger logger = LoggerFactory.getLogger(CoreApplication.class);
 
-    private static final int MAX_X = 300;                               //ToDo use environment variable
-    private static final int MAX_Y = 300;                               //ToDo use environment variable
-    private static final int NUMBER_OF_BLOCKED_HORIZONTAL_LINES = 3;    //ToDo use environment variable
-    private static final int NUMBER_OF_BLOCKED_VERTICAL_LINES = 3;      //ToDo use environment variable
-    private static final int MAX_BLOCKED_SIZE_LINE = 500;               //ToDo use environment variable
+    //ToDo use environment variable
+    private static final int MAX_X = 300;
+    private static final int MAX_Y = 300;
+    private static final int NUMBER_OF_BLOCKED_HORIZONTAL_LINES = 3;
+    private static final int NUMBER_OF_BLOCKED_VERTICAL_LINES = 3;
+    private static final int MAX_BLOCKED_SIZE_LINE = 500;
 
     private static final Random random = new Random(100);
 
